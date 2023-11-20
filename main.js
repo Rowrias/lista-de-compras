@@ -40,7 +40,7 @@ function mostrarItem() {
 
     // Para cada objeto da lista
     listaDeItens.forEach((elemento, index) => {
-        // Se o checar do objeto da lista estiver checado crie este html na "ul"
+        // Se o check do objeto da lista estiver checado crie este html na "ul"
         if(elemento.checar) {
             ulItensComprados.innerHTML += `
             <li class="item-compra is-flex is-justify-content-space-between" data-value="${index}">
@@ -48,6 +48,7 @@ function mostrarItem() {
                     <input type="checkbox" checked class="is-clickable" />  
                     <span class="itens-comprados is-size-5">${elemento.valor}</span>
                 </div>
+
                 <div>
                     <i class="fa-solid fa-trash is-clickable deletar"></i>
                 </div>
@@ -59,13 +60,12 @@ function mostrarItem() {
             <li class="item-compra is-flex is-justify-content-space-between" data-value="${index}">
                 <div>
                     <input type="checkbox" class="is-clickable" />
-                    <input type="text" class="is-size-5" value="${elemento.valor}"></input>
+                    <input type="text" class="is-size-5" value="${elemento.valor}" ${index !== Number(itemAEditar) ? 'disabled' : ''}></input>
                 </div>
+
                 <div>
-                    <button onclick="salvarEdicao()">
-                        <i class="fa-regular fa-floppy-disk is-clickable"></i>
-                    </button>
-                    <i class="fa-regular is-clickable fa-pen-to-square editar"></i>
+                    ${index === Number(itemAEditar) ?  '<button onclick="salvarEdicao()"> <i class="fa-regular fa-floppy-disk is-clickable"></i> </button>' : '<i class="fa-regular is-clickable fa-pen-to-square editar"></i>'}
+                    
                     <i class="fa-solid fa-trash is-clickable deletar"></i>
                 </div>
             </li>
@@ -119,7 +119,7 @@ function mostrarItem() {
 // salvar edição
 function salvarEdicao() {
     // Seleciona o indice armazenada na variavel itemAEditar e seleciona o texto do input e armazena na variavel itemEditado
-    const itemEditado = document.querySelector(`[data-value="${itemAEditar}] input[type="text"]`)
+    const itemEditado = document.querySelector(`[data-value="${itemAEditar}"] input[type="text"]`)
     // Seleciona o valor do itemEditado e armazena na --> listaDeItens no indice do itemAEditar
     listaDeItens[itemAEditar].valor = itemEditado.value
     itemAEditar = -1
