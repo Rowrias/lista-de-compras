@@ -5,6 +5,24 @@ const form = document.getElementById("form-itens")                     // formul
 const itensInput = document.getElementById("receber-item")             // input
 const ulItens = document.getElementById("lista-de-itens")              // lista de itens
 const ulItensComprados = document.getElementById("itens-comprados")    // lista de itens comprados
+const listaRecuperada = localStorage.getItem('listaDeItens')           // 
+
+// Envia a listaDeItens para o localStorage
+function atualizaLocaLStorage() {
+    // trasforma dados da listaDeItens em tipo string, transforma para o formato JSON e armazena no localStorage / json é o formato q o localstorage aceita
+    localStorage.setItem('listaDeItens', JSON.stringify(listaDeItens))
+}
+
+// Se houver dados no localStorage recupera a lista
+if(listaRecuperada) {
+    // transforma os dados do localStorage em elemento JavaScript de volta e guarda na listaDeItem
+    listaDeItens = JSON.parse(listaRecuperada)
+    mostrarItem()
+} 
+// Senão a lista é vazia
+else {
+    listaDeItens = []
+}
 
 // Adiciona um evento no formulario quando clicar no submit
 form.addEventListener("submit", function(evento) {
@@ -114,7 +132,11 @@ function mostrarItem() {
         })
     })
 
+    atualizaLocaLStorage()
+
 }
+
+
 
 // salvar edição
 function salvarEdicao() {
